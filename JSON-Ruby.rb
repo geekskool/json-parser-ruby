@@ -50,7 +50,7 @@ def string_parser input
         indx = input.gsub('\"', '"').index('"')
         return input[0..(indx-1)], input[(indx+1)..-1]
     else
-        return nil, nil
+        return nil
     end
 end
 
