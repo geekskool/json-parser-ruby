@@ -97,10 +97,12 @@ def object_parser input
             input = space_parser rem
             break if rem == nil
             input.slice!(0) if input[0] == ':'
+            
             if space_parser(input)[0] == '['
                 indx = input.index(']')
                 value = array_parser(input[0..indx])
                 input = input[(indx+1)..-1]
+            
             elsif space_parser(input)[0] == '{'
                 indx = input.index('}')
                 value = object_parser(input[0..indx])
@@ -119,11 +121,13 @@ def object_parser input
 end
 
 def element_parser input
-    return array_parser(input) if array_parser(input)
-    return null_parser(input) if null_parser(input)
-    return bool_parser(input) if bool_parser(input)
-    return num_parser(input) if num_parser(input)
+    return array_parser(input)  if array_parser(input)
+    return object_parser(input) if object_parser(input)
+    return null_parser(input)   if null_parser(input)
+    return bool_parser(input)   if bool_parser(input)
+    return num_parser(input)    if num_parser(input)
     return string_parser(input) if string_parser(input)
+    return nil
 end
 
 
